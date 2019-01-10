@@ -2,7 +2,6 @@ package mysql
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
@@ -35,7 +34,6 @@ func (s *MysqlSuite) SetupSuite() {
 	require.NoError(s.T(), err)
 	_, err = s.DBConn.Exec("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';")
 	require.NoError(s.T(), err)
-	fmt.Println("setup sukses")
 
 	s.Migration, err = runMigration(s.DBName, s.MigrationLocationFolder, s.DSN)
 	require.NoError(s.T(), err)
