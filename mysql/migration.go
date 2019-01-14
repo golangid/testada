@@ -12,52 +12,40 @@ type migration struct {
 	Migrate *migrate.Migrate
 }
 
-func (this *migration) Up() ([]error, bool) {
+func (this *migration) Up() (error, bool) {
 	err := this.Migrate.Up()
 	if err != nil {
-		return []error{err}, false
+		if err == migrate.ErrNoChange {
+			return nil, true
+		}
+		return err, false
 	}
-
-	return []error{}, true
+	return nil, true
 }
 
-func (this *migration) Down() ([]error, bool) {
+func (this *migration) Down() (error, bool) {
 	err := this.Migrate.Down()
 	if err != nil {
-		return []error{err}, false
+		return err, false
 	}
-
-	return []error{}, true
+	return nil, true
 }
 
-func runMigration(databaseName, migrationsFolderLocation, dbURI string) (*migration, error) {
+func runMigration(dbConn *sql.DB, migrationsFolderLocation string) (*migration, error) {
 	dataPath := []string{}
 	dataPath = append(dataPath, "file://")
 	dataPath = append(dataPath, migrationsFolderLocation)
 
 	pathToMigrate := strings.Join(dataPath, "")
 
-	db, err := sql.Open(mysql, dbURI)
+	driver, err := _mysql.WithInstance(dbConn, &_mysql.Config{})
 	if err != nil {
 		return nil, err
 	}
 
-	driver, err := _mysql.WithInstance(db, &_mysql.Config{DatabaseName: databaseName})
+	m, err := migrate.NewWithDatabaseInstance(pathToMigrate, mysql, driver)
 	if err != nil {
 		return nil, err
 	}
-
-	m, err := migrate.NewWithDatabaseInstance(
-		pathToMigrate,
-		mysql,
-		driver,
-	)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return &migration{
-		Migrate: m,
-	}, nil
+	return &migration{Migrate: m}, nil
 }

@@ -2,11 +2,11 @@ package mysql
 
 import (
 	"database/sql"
-	"github.com/stretchr/testify/require"
-	"github.com/stretchr/testify/suite"
 
 	driverSql "github.com/go-sql-driver/mysql"
 	_ "github.com/golang-migrate/migrate/source/file"
+	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 )
 
 const mysql = "mysql"
@@ -35,13 +35,16 @@ func (s *MysqlSuite) SetupSuite() {
 	_, err = s.DBConn.Exec("set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';")
 	require.NoError(s.T(), err)
 
-	s.Migration, err = runMigration(s.DBName, s.MigrationLocationFolder, s.DSN)
+	s.Migration, err = runMigration(s.DBConn, s.MigrationLocationFolder)
+	require.NoError(s.T(), err)
+	err, _ = s.Migration.Up()
 	require.NoError(s.T(), err)
 }
 
 // TearDownSuite teardown at the end of test
 func (s *MysqlSuite) TearDownSuite() {
 	s.DBConn.Close()
+	s.Migration.Down()
 }
 
 func DisableLogging() {
@@ -52,5 +55,4 @@ func DisableLogging() {
 type NopLogger struct {
 }
 
-func (l NopLogger) Print(v ...interface{}) {
-}
+func (l NopLogger) Print(v ...interface{}) {}
