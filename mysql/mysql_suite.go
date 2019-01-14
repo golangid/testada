@@ -37,14 +37,11 @@ func (s *MysqlSuite) SetupSuite() {
 
 	s.Migration, err = runMigration(s.DBConn, s.MigrationLocationFolder)
 	require.NoError(s.T(), err)
-	err, _ = s.Migration.Up()
-	require.NoError(s.T(), err)
 }
 
 // TearDownSuite teardown at the end of test
 func (s *MysqlSuite) TearDownSuite() {
 	s.DBConn.Close()
-	s.Migration.Down()
 }
 
 func DisableLogging() {
