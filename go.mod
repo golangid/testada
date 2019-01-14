@@ -1,4 +1,4 @@
-module github.com/ridhoperdana/testada
+module github.com/golangid/testada
 
 require (
 	github.com/go-sql-driver/mysql v1.4.1
