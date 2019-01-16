@@ -10,8 +10,8 @@ This package is just a boilerplate for doing integration testing in Golang. We a
 
 ## Support
 
-You can file an [Issue](https://github.com/bxcodec/faker/issues/new).
-See documentation in [Godoc](https://godoc.org/github.com/bxcodec/faker)
+You can file an [Issue](https://github.com/golangid/testada/issues/new).
+See documentation in [Godoc](https://godoc.org/github.com/golangid/testada)
 
 ## How To Use
 
