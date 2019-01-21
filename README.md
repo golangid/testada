@@ -86,7 +86,7 @@ func (m *mysqlCategorySuiteTest) TestOtherFunction() {
 
 ```
 ## Usage In Redis with GO-REDIS package
-This example use this driver: github.com/go-redis/redis 
+This example use this driver: `github.com/go-redis/redis` <br> 
 Complete file can be seen in: [example-testada-redis](https://github.com/golangid/testada-example/blob/master/redis/cache_test.go)
 
 ```go
