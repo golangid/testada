@@ -8,12 +8,12 @@ This package is just a boilerplate for doing integration testing in Golang. We a
 * [Contribution](#contribution)
 
 
-## Support
+# Support
 
 You can file an [Issue](https://github.com/golangid/testada/issues/new).
 See documentation in [Godoc](https://godoc.org/github.com/golangid/testada)
 
-## How To Use
+# How To Use
 
 ### Prerequisite Library and Tools
 - A live DB on your project, you could use docker to spawn a live DB/services
@@ -137,3 +137,6 @@ func (r *redisHandlerSuite) TestGet() {
 }
 // ... Add more test according to your cases
 ```
+
+# Contribution
+We accept any contributions including PR, or just an issue. 
