@@ -23,7 +23,7 @@ See documentation in [Godoc](https://godoc.org/github.com/golangid/testada)
 #### List DB driver and libraries that already supported here
 |services| driver and libraries |testada-package|
 |--------|--------|---------------|
-| Mysql  | <ul> <li>github.com/go-sql-driver/mysql </li><li> sql/db</li></ul> | github.com/testada/mysql|
+| Mysql  | <ul> <li>github.com/go-sql-driver/mysql </li><li> sql/db</li></ul> | github.com/golangid/testada/mysql|
 | Redis  | github.com/go-redis/redis | github.com/golangid/testada/go-redis |
 
 ## Usage In MYSQL
